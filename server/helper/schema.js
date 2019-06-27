@@ -17,4 +17,18 @@ export default class Schemas {
       isadmin: Joi.boolean().required(),
     });
   }
+
+  /**
+   * returns schema for validating user signup data
+   * @returns {Object} schema for validation
+   */
+  static get signInSchema() {
+    return Joi.object({
+      password: Joi.string().alphanum().min(4).trim()
+        .max(50)
+        .required(),
+      email: Joi.string().email().min(5).trim()
+        .required(),
+    });
+  }
 }

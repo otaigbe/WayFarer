@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "migration": "cross-env NODE_ENV=test babel-node ./server/model/migration.js --env",
-    "test": "cross-env NODE_ENV=test npm run migration && cross-env NODE_ENV=test nyc --reporter=text --reporter=html mocha server/tests/v1/createUser.js --timeout 25000 --exit",
+    "test": "cross-env NODE_ENV=test npm run migration && cross-env NODE_ENV=test nyc --reporter=text --reporter=html mocha server/tests/v1/createUser.js server/tests/v1/signIn.js --timeout 25000 --exit",
     "dev": "cross-env NODE_ENV=development nodemon --exec babel-node ./server/index.js",
     "clean": "rm -rf build && mkdir build",
     "build-babel": "babel ./server --out-dir ./build/server",

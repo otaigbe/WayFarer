@@ -30,7 +30,7 @@ export default class CreateUser {
         const args = [firstname, lastname, hashedPassword, email, isadmin];
         const dbOperationResult2 = await helper.wrapDbOperationInTryCatchBlock(res, queries.insertNewUser, args);
         const { id } = dbOperationResult2.rows[0];
-        const token = jwt.sign({ id, email, firstname }, process.env.SECRETKEY);
+        const token = jwt.sign({ id, email, firstname, isadmin }, process.env.SECRETKEY);
         dbOperationResult2.rows[0].token = token;
         res.set('x-auth-token', token);
         return res.status(201).json(response.success('Signup Successful!Login With your new email', dbOperationResult2.rows[0]));

@@ -17,4 +17,17 @@ export default class Sanitizer {
       check('isadmin').trim(),
     ];
   }
+
+  /**
+   * @param {object} req client request Object
+   * @param {object} res server response object
+   * @param {object} next control structure to continue processing
+   * @returns {JSON}
+   */
+  static sanitizeUserSignInData() {
+    return [
+      check('password').trim(),
+      check('email').isEmail().trim().normalizeEmail(),
+    ];
+  }
 }

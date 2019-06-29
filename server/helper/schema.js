@@ -1,5 +1,7 @@
-import Joi from 'joi';
+import joi from 'joi';
+import extension from '@hapi/joi-date';
 
+const Joi = joi.extend(extension);
 export default class Schemas {
   /**
    * returns schema for validating user signup data
@@ -19,7 +21,7 @@ export default class Schemas {
   }
 
   /**
-   * returns schema for validating user signup data
+   * returns schema for validating user sign in data
    * @returns {Object} schema for validation
    */
   static get signInSchema() {
@@ -29,6 +31,21 @@ export default class Schemas {
         .required(),
       email: Joi.string().email().min(5).trim()
         .required(),
+    });
+  }
+
+  /**
+   * returns schema for validating user sign in data
+   * @returns {Object} schema for creating an object
+   */
+  static get createTripSchema() {
+    return Joi.object({
+      busid: Joi.number().integer().required(),
+      origin: Joi.string().trim().min(3).required(),
+      tripdate: Joi.date().format('YYYY-MM-DD').required(),
+      destination: Joi.string().trim().min(3).required(),
+      fare: Joi.number().required(),
+      status: Joi.string().trim().valid('active', 'cancelled'),
     });
   }
 }

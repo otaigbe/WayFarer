@@ -30,6 +30,7 @@ export default class SigninController {
         const token = jwt.sign({
           id, firstname, isadmin, email,
         }, process.env.SECRETKEY);
+        res.set('x-auth-token', token);
         return res.status(200).json(response.success(`Welcome! ${firstname}`, {
           id, firstname, isadmin, email, token,
         }));

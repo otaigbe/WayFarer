@@ -4,6 +4,8 @@ import pool from './dbConnect';
 conf.config();
 
 const createSchema = () => {
+  const createTripStatus = 'CREATE TYPE tripstatus AS ENUM(\'active\', \'cancelled\')';
+
   const createUserTable = `CREATE TABLE IF NOT EXISTS users (
         id bigserial PRIMARY KEY UNIQUE NOT NULL,
         firstname VARCHAR(200) NOT NULL,
@@ -29,7 +31,7 @@ const createSchema = () => {
         destination VARCHAR(200) NOT NULL,
         tripdate DATE NOT NULL,
         fare FLOAT NOT NULL,
-        status FLOAT NOT NULL
+        status tripstatus NOT NULL
    )`;
   const createBookingsTable = `CREATE TABLE IF NOT EXISTS bookings (
         id bigserial PRIMARY KEY UNIQUE NOT NULL,
@@ -40,7 +42,9 @@ const createSchema = () => {
   pool.connect(async (err, client) => {
     if (err) console.log(err);
     try {
+      await client.query('DROP TYPE IF EXISTS tripstatus cascade');
       await client.query('DROP TABLE IF EXISTS users, buses, trips, bookings cascade');
+      await client.query(createTripStatus);
       await client.query(createUserTable);
       await client.query(createBusesTable);
       await client.query(createTripsTable);

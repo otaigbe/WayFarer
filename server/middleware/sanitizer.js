@@ -30,4 +30,21 @@ export default class Sanitizer {
       check('email').isEmail().trim().normalizeEmail(),
     ];
   }
+
+  /**
+   * @param {object} req client request Object
+   * @param {object} res server response object
+   * @param {object} next control structure to continue processing
+   * @returns {JSON}
+   */
+  static sanitizeCreateTripData() {
+    return [
+      check('busid').trim().isInt(),
+      check('origin').trim(),
+      check('tripdate').trim(),
+      check('destination').trim(),
+      check('fare').trim().isFloat(),
+      check('status').trim(),
+    ];
+  }
 }

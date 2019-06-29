@@ -12,7 +12,8 @@
     "build-babel": "babel ./server --out-dir ./build/server",
     "build": "npm run clean && npm run build-babel",
     "start": "cross-env NODE_ENV=production npm run build && node ./build/server/index.js",
-    "coverage": "nyc report --reporter=text-lcov | coveralls"
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "migration_prod": "cross-env NODE_ENV=production babel-node ./server/model/migration.js --env"
   },
   "repository": {
     "type": "git",

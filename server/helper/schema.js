@@ -48,4 +48,15 @@ export default class Schemas {
       status: Joi.string().trim().valid('active', 'cancelled'),
     });
   }
+
+  /**
+   * returns schema for validating user sign in data
+   * @returns {Object} schema for creating an object
+   */
+  static get getAllTripsSchema() {
+    return Joi.object({
+      page: Joi.number().integer(),
+      quantity: Joi.number().integer(),
+    });
+  }
 }

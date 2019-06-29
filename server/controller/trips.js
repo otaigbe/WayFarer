@@ -33,4 +33,27 @@ export default class Trips {
     }
     errorHandler.validationError(res, result);
   }
+
+
+  /**
+   * @async
+   * @method - This method retrieves all trips
+   * @param {Object} req - client request Object
+   * @param {Object} res - Server response Object
+   * @returns {JSON} - containing the status message and an array of all trips
+   */
+  static async getAllTrips(req, res) {
+    if ((req.query.page == undefined || req.query.page === 0) && req.query.quantity == undefined) {
+      req.query.page = 1;
+      req.query.quantity = 5;
+    }
+    const result = Joi.validate(req.query, schema.getAllTripsSchema, { convert: true });
+    if (result.error === null) {
+      const { page, quantity } = req.query;
+      const offset = (page - 1) * quantity;
+      const dbOperationResult = await helper.wrapDbOperationInTryCatchBlock(res, queries.getAllTrips, [quantity, offset]);
+      return res.status(200).json(response.success(`All Trips. Page ${page}`, dbOperationResult.rows));
+    }
+    errorHandler.validationError(res, result);
+  }
 }

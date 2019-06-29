@@ -47,4 +47,17 @@ export default class Sanitizer {
       check('status').trim(),
     ];
   }
+
+  /**
+   * @param {object} req client request Object
+   * @param {object} res server response object
+   * @param {object} next control structure to continue processing
+   * @returns {JSON}
+   */
+  static sanitizeTripQueries() {
+    return [
+      check('page').isInt(),
+      check('quantity').isInt(),
+    ];
+  }
 }

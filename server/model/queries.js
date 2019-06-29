@@ -15,4 +15,8 @@ export default class Queries {
     return 'SELECT * FROM trips WHERE busid = $1 AND tripdate = $2';
   }
 
+  static get getAllTrips() {
+    return 'SELECT * FROM trips LIMIT  $1 OFFSET $2';
+  }
+
 }

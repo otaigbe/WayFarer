@@ -60,4 +60,21 @@ export default class Sanitizer {
       check('quantity').isInt(),
     ];
   }
+
+  /**
+   * @param {object} req client request Object
+   * @param {object} res server response object
+   * @param {object} next control structure to continue processing
+   * @returns {JSON}
+   */
+  static sanitizeBusData() {
+    return [
+      check('platenumber').trim(),
+      check('manufacturer').trim(),
+      check('model').trim(),
+      check('year').trim(),
+      check('capacity').trim(),
+      check('vinnumber').trim(),
+    ];
+  }
 }

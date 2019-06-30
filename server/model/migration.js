@@ -18,10 +18,11 @@ const createSchema = () => {
   const createBusesTable = `CREATE TABLE IF NOT EXISTS buses (
         id bigserial PRIMARY KEY UNIQUE NOT NULL,
         platenumber VARCHAR(200) NOT NULL,
-        manufacturer text NOT NULL,
+        manufacturer VARCHAR(200) NOT NULL,
         model VARCHAR(200) NOT NULL,
-        year VARCHAR(200) NOT NULL,
-        capacity INTEGER NOT NULL
+        year INTEGER NOT NULL,
+        capacity INTEGER NOT NULL,
+        vinnumber VARCHAR(200) UNIQUE NOT NULL
         )`;
 
   const createTripsTable = `CREATE TABLE IF NOT EXISTS trips (
@@ -30,6 +31,8 @@ const createSchema = () => {
         origin VARCHAR(200) NOT NULL,
         destination VARCHAR(200) NOT NULL,
         tripdate DATE NOT NULL,
+        vehiclecapacity INTEGER NOT NULL,
+        occupiedspaces INTEGER[],
         fare FLOAT NOT NULL,
         status tripstatus NOT NULL
    )`;

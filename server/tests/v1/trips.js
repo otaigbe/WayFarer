@@ -10,7 +10,7 @@ describe('Testing the create trips Endpoint', () => {
     it('should create a new trip successfully', async () => {
       const res = await chai.request(app).post('/api/v1/trips').set('x-auth-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJmaXJzdG5hbWUiOiJtYWNobyIsImlzYWRtaW4iOnRydWUsImVtYWlsIjoibGlub0BnbS5jb20iLCJpYXQiOjE1NjE3MDUwMjh9.-KMTYqYKJTTIkm_Xo67KINlK8Q6ZMQItENkfskyWX8E').type('form')
         .send({
-          busid: 987786,
+          busid: 1,
           origin: 'togo',
           tripdate: '2019-07-25',
           destination: 'ghana',
@@ -39,7 +39,7 @@ describe('Testing the create trips Endpoint', () => {
     it('should return an already existent trip message', async () => {
       const res = await chai.request(app).post('/api/v1/trips').set('x-auth-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJmaXJzdG5hbWUiOiJtYWNobyIsImlzYWRtaW4iOnRydWUsImVtYWlsIjoibGlub0BnbS5jb20iLCJpYXQiOjE1NjE3MDUwMjh9.-KMTYqYKJTTIkm_Xo67KINlK8Q6ZMQItENkfskyWX8E').type('form')
         .send({
-          busid: 987786,
+          busid: 1,
           origin: 'togo',
           tripdate: '2019-07-25',
           destination: 'ghana',

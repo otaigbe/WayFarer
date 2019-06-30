@@ -22,9 +22,11 @@ export default class Trips {
         busid, origin, tripdate, destination, fare, status,
       } = req.body;
       if (isadmin === true) {
+        const dbOperationResult3 = await helper.wrapDbOperationInTryCatchBlock(res, queries.retrieveBusCapacity, [busid]);
+        const vehicleCapacity = dbOperationResult3.rows[0].capacity;
         const dbOperationResult2 = await helper.wrapDbOperationInTryCatchBlock(res, queries.checkIfATripAlreadyExists, [busid, tripdate]);
         if (dbOperationResult2.rowCount === 0) {
-          const dbOperationResult = await helper.wrapDbOperationInTryCatchBlock(res, queries.createTrip, [busid, origin, destination, tripdate, fare, status]);
+          const dbOperationResult = await helper.wrapDbOperationInTryCatchBlock(res, queries.createTrip, [busid, origin, destination, tripdate, vehicleCapacity, fare, status]);
           return res.status(201).json(response.success('Trip successfully created', dbOperationResult.rows[0]));
         }
         return res.status(409).json(response.failure(`There is a trip already set for ${tripdate} and with busid: ${busid}`, {}));
